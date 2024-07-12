@@ -56,6 +56,9 @@
                           </li>
                       </ul>
                       <div class="row d-flex align-items-center justify-content-center m-3">
+                        <a href="{{route('change-password')}}" class="col-12 dud-logout bg-primary text-light p-2 text-center mb-3" title="Logout">
+                            <i class="feather icon-unlock"></i>&nbsp;Паролни озгартириш
+                        </a>
                         <a href="{{route('logout')}}" class="col-12 dud-logout bg-danger text-light p-2 text-center" title="Logout">
                             <i class="feather icon-log-out"></i>&nbsp;Выход из системы
                         </a>

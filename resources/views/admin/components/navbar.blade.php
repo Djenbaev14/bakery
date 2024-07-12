@@ -50,11 +50,12 @@
                         <li><a href="{{route('deliveries.delivery-history')}}">История доставок</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('clients.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Клиенты</span></a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('debt_clients.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Долг клиенты</span></a>
+                <li class="nav-item pcoded-hasmenu">
+                    <a href="#" class="nav-link d-flex align-items-center"><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Клиенты</span></a>
+                    <ul class="pcoded-submenu">
+                        <li><a href="{{route('clients.index')}}">Список клиентов</a></li>
+                        <li><a href="{{route('debt_clients.index')}}">Долг клиенты</a></li>
+                    </ul>
                 </li>
                 
                 <li class="nav-item pcoded-hasmenu">
@@ -115,25 +116,12 @@
                             <li><a href="{{route('breads.index')}}">Склад 2</a></li>
                         </ul>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{route('debts.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-balance-scale"></i></span><span class="pcoded-mtext">Долги</span></a>
-                    </li> --}}
-                    {{-- <li class="nav-item pcoded-hasmenu">
-                        <a href="#" class="nav-link d-flex align-items-center"><span class="pcoded-micon"><i class="fa fa-warehouse"></i></span><span class="pcoded-mtext">Долги</span></a>
-                        <ul class="pcoded-submenu">
-                            <li><a href="{{route('debts.index')}}">Долг</a></li>
-                            <li><a href="{{route('expected.debts.index')}}">Ожидаемое долги</a></li>
-                        </ul>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{route('controls.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-cog"></i></span><span class="pcoded-mtext">Доступ контроль</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('productions.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-cart"></i></span><span class="pcoded-mtext">Производство</span></a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a href="{{route('users_salary.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-dollar-sign"></i></span><span class="pcoded-mtext">Зарплаты </span></a>
-                    </li> --}}
                     <li class="nav-item">
                         <a href="{{route('users.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Пользователи</span></a>
                     </li>
@@ -154,13 +142,8 @@
                 <li class="nav-item pcoded-hasmenu">
                     <a href="#" class="nav-link d-flex align-items-center"><span class="pcoded-micon"><i class="fa fa-file"></i></span><span class="pcoded-mtext">Отчет</span></a>
                     <ul class="pcoded-submenu">
-                        {{-- <li><a href="{{route('report-active')}}">Актив клиенты</a></li> --}}
-                        {{-- <li><a href="{{route('report-admin')}}">Админ продажа</a></li> --}}
-                        {{-- <li><a href="{{route('report-money')}}">Отчет ДДС</a></li> --}}
                         <li><a href="{{route('report-warehouse')}}">Склад</a></li>
                         <li><a href="{{route('report-sale')}}">Продажа 2</a></li>
-                        {{-- <li><a href="{{route('report-delivery')}}">Продажа</a></li> --}}
-                        {{-- <li><a href="{{route('report-production')}}">Производство</a></li> --}}
                     </ul>
                 </li>
                 @elseif(auth()->user()->role_id == 4)

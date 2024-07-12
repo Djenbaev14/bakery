@@ -46,7 +46,7 @@ class ClientController extends Controller
     public function histories(Client $client,Request $request){
         $start_date =$request->start_date ? $request->start_date : date('Y-m-d');
         $end_date =$request->end_date ? $request->end_date : date('Y-m-d');
-        $client_sale=Sale_items::where('client_id',$client->id)->get();
+        $client_sale=Sale::where('client_id',$client->id)->get();
         
 
 
@@ -93,65 +93,6 @@ class ClientController extends Controller
     public function pay_client_filter(Client $client,Request $request){
         return $request->all();
     }
-    // public function pay_client(Request $request){
-    //     $request->validate([
-    //         'total'=>'required|numeric',
-    //         'paid'=>'required|numeric',
-    //         'type'=>'required',
-    //     ]);
-    //     DB::beginTransaction();
-    //     try{
-    //         $payment_history=payment_history::create([
-    //             'client_id'=>$request->client_id,
-    //             'user_id'=>auth()->user()->id,
-    //             'paid'=>$request->paid,
-    //             'type'=>$request->type,
-    //         ]);
-    //         if($request->type == 'per'){
-    //             $payment_history->update([
-    //                 'status'=>1
-    //             ]);
-    //         }
-    //         if(count($request->check)<=1){
-    //             $sale=Sale::find($request->check[0]);
-    //             $debt=$sale->sale_item->sum(function($t){return $t->price * $t->quantity;}) - $sale->return_bread->sum(function($t){return $t->sale_item->price * $t->quantity;})-sale_history::where('sale_id',$request->check[0])->sum('paid');
-    //             if($request->paid > $debt){
-    //                 sale_history::create([
-    //                     'sale_id'=>$request->check[0],
-    //                     'paid'=>$debt,
-    //                     'type'=>$request->type,
-    //                     'status'=>($request->type == 'per') ? 1:0
-    //                 ]);
-    //             }else{
-    //                 sale_history::create([
-    //                     'sale_id'=>$request->check[0],
-    //                     'paid'=>$request->paid,
-    //                     'type'=>$request->type,
-    //                     'status'=>($request->type == 'per') ? 1:0
-    //                 ]);
-    //             }
-    //         }else{
-    //             for ($i=0; $i < count($request->check); $i++) { 
-    //                 $sale[$i]=Sale::find($request->check[$i]);
-    //                 $debt[$i]=$sale[$i]->sale_item->sum(function($t){return $t->price * $t->quantity;}) - $sale[$i]->return_bread->sum(function($t){return $t->sale_item->price * $t->quantity;})-sale_history::where('sale_id',$request->check[$i])->sum('paid');
-    //                 sale_history::create([
-    //                     'sale_id'=>$request->check[$i],
-    //                     'paid'=>$debt[$i],
-    //                     'type'=>$request->type,
-    //                     'status'=>($request->type == 'per') ? 1:0
-    //                 ]);
-    //             }
-    //         }
-            
-    //         DB::commit();
-    //     }catch (\Throwable $th) {
-    //         DB::rollBack();
-    //         return redirect()->route('client_histories',$request->client_id)->with('error', 'Не удалось');
-    //     }
-    //     return redirect()->route('client_histories',$request->client_id)->with('success', 'успешно создана');
-        
-    // }
-
 
     public function pay_client(Request $request){
         $request->validate([

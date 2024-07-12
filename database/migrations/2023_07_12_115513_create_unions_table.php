@@ -30,6 +30,9 @@ return new class extends Migration
         DB::table('unions')->insert([
             'name'=>'пачка',
         ]);
+        DB::table('unions')->insert([
+            'name'=>'Киловат',
+        ]);
     }
 
     /**

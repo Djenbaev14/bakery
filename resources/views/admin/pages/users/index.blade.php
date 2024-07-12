@@ -75,8 +75,8 @@
               </div>
             </div>
             <div class="card-block" style="overflow: auto">
-              <livewire:power-grid-table/>
-                {{-- <table class="table table-bordered table-striped table-hover">
+              {{-- <livewire:power-grid-table/> --}}
+                <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
                             <th>
@@ -138,9 +138,9 @@
                             </td>
                         @endforelse
                     </tbody>
-                </table> --}}
+                </table>
             </div>
-            {{-- <span class="d-flex justify-content-end">{{$users->links()}}</span> --}}
+            <span class="d-flex justify-content-end">{{$users->links()}}</span>
         </div>
     </div>
 

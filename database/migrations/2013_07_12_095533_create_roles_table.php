@@ -38,6 +38,11 @@ return new class extends Migration
             'name'=>'WORKER',
             'r_name'=>'Работник'
         ]);
+        
+        DB::table('roles')->insert([
+            'name'=>'Examiner',
+            'r_name'=>'Инспектор'
+        ]);
     }
 
     /**

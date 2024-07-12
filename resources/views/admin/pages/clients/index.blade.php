@@ -99,7 +99,7 @@
                       @forelse ($clients as $client)
                       <tr>
                           <td class="align-middle">
-                              <a href="{{route('clients.show',$client->id)}}">{{ $client->name}}</a>
+                              {{ $client->name}}
                           </td>
                           <td class="align-middle">
                               {{ $client->user->username}}
@@ -111,7 +111,7 @@
                             <button type="button" class="btn btn-sm btn-primary ml-2" data-bs-toggle="modal" data-bs-target="#clientUpdate" onclick="getClientUpdate('{{$client->id}}','{{$client->name}}','{{$client->phone}}','{{$client->comment}}','{{$client->kindergarden}}')">
                               <i class="fa fa-edit"></i>
                             </button>
-                            <a href="{{route('client_histories',$client->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
+                            <a href="{{route('clients.show',$client->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-eye"></i></a>
                           </td>
                       </tr>
                       @empty

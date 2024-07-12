@@ -27,26 +27,19 @@ class UserController extends Controller
     }
 
     public function update(Request $request,User $user){
-        // if (!(Hash::check($request->get('current_password'), $user->password))) {
+        // if ($request->current_password==null && !(Hash::check($request->get('current_password'), $user->password))) {
         //     return redirect()->back()->with("error","Ваш текущий пароль не совпадает с вашим паролем.");
         // }
 
-        // if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
+        // if($request->current_password==null && $request->new_password==null &&strcmp($request->get('current_password'), $request->get('new_password')) == 0){
         //     return redirect()->back()->with("error","Новый пароль не может совпадать с вашим текущим паролем.");
         // }
-
-        // $request->validate([
-        //     'username'=>'required',
-        //     'phone'=>'required|min:9',
-        //     'KPI'=>'required',
-        //     'current_password' => 'required',
-        //     'new_password' => 'required|string|min:8',
-        // ]);
-        
         $request->validate([
             'username'=>'required',
             'phone'=>'required|min:9',
             'KPI'=>'required',
+            // 'current_password' => 'required',
+            // 'new_password' => 'required|string|min:8',
         ]);
 
         //Change Password

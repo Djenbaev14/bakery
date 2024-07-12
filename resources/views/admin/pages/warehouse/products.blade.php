@@ -104,7 +104,7 @@
                        <a href="{{route('products.show',$product->id)}}">{{ $product->name}}</a>
                     </td>
                     <td class="align-middle">
-                      {{ $product->coming_product->sum('quantity')-$product->expenditure_product->sum('quantity') }}
+                      {{product_quan($product->id)}}
                         {{$product->union->name}}
                     </td>
                     <td class="align-middle">

@@ -11,6 +11,16 @@ class DebtClientsSearch extends Component
     
     public $search_main;
     public $search_kindergarten;
+    public $sortField;
+    public $sortDirection='asc';
+    public function sortBy($filed){
+        if($this->sortField==$filed){
+            $this->sortDirection=$this->sortDirection==='asc'?'desc':'asc';
+        }else{
+            $this->sortDirection='asc';
+        }
+        $this->sortField=$filed;
+    }
     public function render()
     {
         

@@ -1,11 +1,14 @@
 <?php 
 use App\Models\Bread;
 use App\Models\Client;
+use App\Models\Coming_product;
 use App\Models\Delivery;
 use App\Models\Expenditure;
+use App\Models\Expenditure_product;
 use App\Models\Expenditure_Salary;
 use App\Models\ExpenditureType;
 use App\Models\payment_history;
+use App\Models\Product;
 use App\Models\Production;
 use App\Models\Refund_bread;
 use App\Models\Return_bread;
@@ -72,9 +75,12 @@ use App\Models\User_salary;
   }
 
   function client_balance($id){
-    return Client::where('id',$id)->first()->sale_history->sum('paid')-Client::where('id',$id)->first()->sale->sum(function($t){return $t->price * $t->quantity;});
+    return Client::where('id',$id)->first()->sale_history->sum('paid') - Client::where('id',$id)->first()->sale->sum(function($t){return $t->price * $t->quantity;}) ;
   }
 
+  function product_quan($product_id){
+    return Coming_product::where('product_id',$product_id)->sum('quantity')-Expenditure_product::where('product_id',$product_id)->sum('quantity');
+  }
   function warehouse_quan($id){
      return Production::where('bread_id',$id)->sum('quantity')+Refund_bread::where('bread_id',$id)->where('status',1)->sum('quantity')-Delivery::where('bread_id',$id)->sum('quantity')-Sale::where('bread_id','=',$id)->whereHas('user', function($q) {
       $q->where('role_id','!=',3);})->sum('quantity');

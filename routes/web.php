@@ -42,6 +42,10 @@ Route::post('/login',[AuthController::class,'auth'])->name('auth.login');
 
 // logout
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+// change password
+Route::get('/change-password',[HomeController::class,'changePassword'])->name('change-password');
+// change-password.update
+Route::post('/change-password',[HomeController::class,'changePasswordUpdate'])->name('change-password.update');
 
 // home
 Route::get('/', [HomeController::class,'home'])->name('home')->middleware('auth');

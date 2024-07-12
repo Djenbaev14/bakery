@@ -214,37 +214,37 @@ class ClientController extends Controller
     return redirect()->route('clients.index')->with('success', 'успешно обновлено');
     }
 
-    public function return_bread(Request $request){
-        $request->validate([
-            'sale_item_id'=>'array',
-            'quantity'=>'array',
-        ]);
-        try {
-            $total=0;
-            for ($i=0; $i < count($request->sale_item_id); $i++) { 
-                $total+=$request->quantity[$i]*Sale_items::find($request->sale_item_id[$i])->price;
-                if($request->quantity[$i]>0){
-                    Return_bread::create([
-                        'user_id'=>auth()->user()->id,
-                        'client_id'=>$request->client_id,
-                        'sale_id'=>$request->sale_id,
-                        'sale_item_id'=>$request->sale_item_id[$i],
-                        'price'=>Sale_items::find($request->sale_item_id[$i])->price,
-                        'quantity'=>$request->quantity[$i]
-                    ]);
-                }
-            }
-            // Sale::where('id',$request->sale_id)->update([
-            //     'total'=>DB::raw('total-'.$total)
-            // ]);
-            User_salary::where('sale_id',$request->sale_id)->update([
-                'summa'=>DB::raw('summa-'.$total*auth()->user()->KPI/100),
-            ]);
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return redirect()->route('client_histories',$request->client_id)->with('error', 'Не удалось');
-        }
-        return redirect()->route('client_histories',$request->client_id)->with('success', 'успешно создана');
-    }
+    // public function return_bread(Request $request){
+    //     $request->validate([
+    //         'sale_item_id'=>'array',
+    //         'quantity'=>'array',
+    //     ]);
+    //     try {
+    //         $total=0;
+    //         for ($i=0; $i < count($request->sale_item_id); $i++) { 
+    //             $total+=$request->quantity[$i]*Sale_items::find($request->sale_item_id[$i])->price;
+    //             if($request->quantity[$i]>0){
+    //                 Return_bread::create([
+    //                     'user_id'=>auth()->user()->id,
+    //                     'client_id'=>$request->client_id,
+    //                     'sale_id'=>$request->sale_id,
+    //                     'sale_item_id'=>$request->sale_item_id[$i],
+    //                     'price'=>Sale_items::find($request->sale_item_id[$i])->price,
+    //                     'quantity'=>$request->quantity[$i]
+    //                 ]);
+    //             }
+    //         }
+    //         // Sale::where('id',$request->sale_id)->update([
+    //         //     'total'=>DB::raw('total-'.$total)
+    //         // ]);
+    //         User_salary::where('sale_id',$request->sale_id)->update([
+    //             'summa'=>DB::raw('summa-'.$total*auth()->user()->KPI/100),
+    //         ]);
+    //         DB::commit();
+    //     } catch (\Throwable $th) {
+    //         DB::rollBack();
+    //         return redirect()->route('client_histories',$request->client_id)->with('error', 'Не удалось');
+    //     }
+    //     return redirect()->route('client_histories',$request->client_id)->with('success', 'успешно создана');
+    // }
 }

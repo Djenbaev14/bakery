@@ -32,7 +32,7 @@ return new class extends Migration
 
         
         DB::table('clients')->insert([
-            'user_id'=>3,
+            'user_id'=>1,
             'name'=>'Salamat detsad',
             'phone'=>'934131241',
             'kindergarden'=>1,
@@ -40,7 +40,7 @@ return new class extends Migration
 
         
         DB::table('clients')->insert([
-            'user_id'=>3,
+            'user_id'=>1,
             'name'=>'Husan',
             'phone'=>'981342342',
             'kindergarden'=>0,

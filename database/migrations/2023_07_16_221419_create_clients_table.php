@@ -23,28 +23,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        DB::table('clients')->insert([
-            'user_id'=>1,
-            'name'=>'Javohir',
-            'phone'=>'941345322',
-            'kindergarden'=>0,
-        ]);
-
-        
-        DB::table('clients')->insert([
-            'user_id'=>1,
-            'name'=>'Salamat detsad',
-            'phone'=>'934131241',
-            'kindergarden'=>1,
-        ]);
-
-        
-        DB::table('clients')->insert([
-            'user_id'=>1,
-            'name'=>'Husan',
-            'phone'=>'981342342',
-            'kindergarden'=>0,
-        ]);
     }
 
     /**

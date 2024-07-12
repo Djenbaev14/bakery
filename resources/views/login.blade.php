@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        Xantore
+        Trio
     </title>
     <!-- Meta -->
     <meta charset="utf-8">

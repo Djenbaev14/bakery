@@ -74,6 +74,9 @@
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{route('fines.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-exclamation-circle"></i></span><span class="pcoded-mtext">Штраф </span></a>
+                </li>
 
                 @elseif(auth()->user()->role_id == 3)
                     {{-- <li class="nav-item">
@@ -116,14 +119,15 @@
                             <li><a href="{{route('breads.index')}}">Склад 2</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item pcoded-hasmenu">
+                        <a href="#" class="nav-link d-flex align-items-center"><span class="pcoded-micon"><i class="fa fa-warehouse"></i></span><span class="pcoded-mtext">Долги</span></a>
+                        <ul class="pcoded-submenu">
+                            <li><a href="{{route('debts.index')}}">Долг</a></li>
+                            <li><a href="{{route('expected.debts.index')}}">Ожидаемое долги</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a href="{{route('controls.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-cog"></i></span><span class="pcoded-mtext">Доступ контроль</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('productions.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-cart"></i></span><span class="pcoded-mtext">Производство</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{route('users.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Пользователи</span></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{route('expenditure.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-coins"></i></span><span class="pcoded-mtext">Расход</span></a>
@@ -139,13 +143,6 @@
                         <a href="{{route('clients.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-users"></i></span><span class="pcoded-mtext">Клиенты</span></a>
                     </li>
                     
-                <li class="nav-item pcoded-hasmenu">
-                    <a href="#" class="nav-link d-flex align-items-center"><span class="pcoded-micon"><i class="fa fa-file"></i></span><span class="pcoded-mtext">Отчет</span></a>
-                    <ul class="pcoded-submenu">
-                        <li><a href="{{route('report-warehouse')}}">Склад</a></li>
-                        <li><a href="{{route('report-sale')}}">Продажа 2</a></li>
-                    </ul>
-                </li>
                 @elseif(auth()->user()->role_id == 4)
                     <li class="nav-item">
                         <a href="{{route('productions.index')}}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-cart"></i></span><span class="pcoded-mtext">Производство</span></a>

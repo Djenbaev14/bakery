@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\SaleController;
 use App\Http\Controllers\DebtClientController;
+use App\Http\Controllers\FineController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RefundBreadController;
 use App\Http\Controllers\ReturnBreadController;
@@ -135,20 +136,6 @@ Route::group(['middleware'=>['auth','all_admin']],function(){
 });
 Route::group(['middleware'=>['auth','GL_OR_SELLER_ADMIN']],function(){
     
-    // users
-    // index
-    Route::get('/users',[UserController::class,'users'])->name('users.index');
-    // update
-    Route::post('/users/update/{user}',[UserController::class,'update'])->name('users.update');
-    // edit
-    Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
-    // delete
-    Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.destroy');
-    // create
-    Route::post('/users/create',[UserController::class,'store'])->name('users.create');
-    // key
-    Route::post('/key/{id}',[UserController::class,'Userkey'])->name('user.key');
-
     
     // users_salary
     
@@ -222,6 +209,17 @@ Route::group(['middleware'=>['auth','GL_OR_SELLER_ADMIN']],function(){
     // create
     Route::post('/access-control/create',[AccessController::class,'store'])->name('controls.create');
 
+    
+    // fines
+    // index
+    Route::get('/fines',[FineController::class,'index'])->name('fines.index');
+    // create
+    Route::post('/fines/create',[FineController::class,'store'])->name('fines.create');
+    // delete
+    Route::delete('/fines/{fine_id}',[FineController::class,'destroy'])->name('fines.destroy');
+    // check
+    Route::get('/fines/check/{fine_id}',[FineController::class,'check'])->name('fines.check');
+
 
 
 });
@@ -229,6 +227,20 @@ Route::group(['middleware'=>['auth','GL_OR_SELLER_ADMIN']],function(){
 
 Route::group(['middleware'=>['auth','GL_ADMIN']],function(){
 
+
+    // users
+    // index
+    Route::get('/users',[UserController::class,'users'])->name('users.index');
+    // update
+    Route::post('/users/update/{user}',[UserController::class,'update'])->name('users.update');
+    // edit
+    Route::get('/users/{user}/edit',[UserController::class,'edit'])->name('users.edit');
+    // delete
+    Route::delete('/users/{user}',[UserController::class,'destroy'])->name('users.destroy');
+    // create
+    Route::post('/users/create',[UserController::class,'store'])->name('users.create');
+    // key
+    Route::post('/key/{id}',[UserController::class,'Userkey'])->name('user.key');
 
 
     // report 

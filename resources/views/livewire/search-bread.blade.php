@@ -54,11 +54,15 @@
                       {{number_format($bread->kindergarden_price)}} сум
                     </td>
                     <td class="align-middle">
-                      {{-- {{number_format($bread->cost_price, 2, ',', ' ')}} сум --}}
-                      <?php $total=0;?>
-                      @foreach ($bread->bread_product as $b_product)
-                          <?php $total+=$b_product->product->price*($b_product->quantity/$b_product->milky_quan);?>
-                      @endforeach
+                      <?php
+                             $total=0;
+                            if (auth()->user()->role_id==1) {
+                              foreach ($bread->bread_product as $b_product){
+                                  $total+=$b_product->product->price*($b_product->quantity/$b_product->milky_quan);
+                              }
+                                number_format($total);
+                            }
+                             ?>
                       {{number_format($total)}} сум
                     </td>
                     <td class="d-flex justify-content-around">

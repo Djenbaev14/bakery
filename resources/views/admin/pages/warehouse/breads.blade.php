@@ -85,11 +85,11 @@
                                   <a class="btn btn-primary btn-sm col-10 " id="add-more" href="javascript:;" role="button"><i class="fa fa-plus"></i> Добавить ингридиенты</a>
                               </div>
                               <div class="form-group">
-                                <span>Админ Цена продажи</span>
+                                <span>Цена продажи</span>
                                 <input type="number" required name="price" class="form-control" value={{old('price')}}>
                               </div>
                               <div class="form-group">
-                                <span>Админ Цена (Перечисления) продажи</span>
+                                <span>Цена (Перечисления) продажи</span>
                                 <input type="number" required name="kindergarden_price" class="form-control" value={{old('kindergarden_price')}}>
                               </div>
                               <button type="submit" class="btn btn-primary" id="save">Добавить</button>
@@ -155,11 +155,15 @@
                           </td>
                           <td class="align-middle">
                             {{-- {{number_format($bread->cost_price, 2, ',', ' ')}} сум --}}
-                            <?php $total=0;?>
-                            @foreach ($bread->bread_product as $b_product)
-                                <?php $total+=$b_product->product->price*($b_product->quantity/$b_product->milky_quan);?>
-                            @endforeach
-                            {{number_format($total)}} сум
+                            <?php
+                             $total=0;
+                            if (auth()->user()->role_id==1) {
+                              foreach ($bread->bread_product as $b_product){
+                                  $total+=$b_product->product->price*($b_product->quantity/$b_product->milky_quan);
+                              }
+                            }
+                              echo $total==0 ? '' : number_format($total).' сум';
+                             ?>
                           </td>
                           <td class="d-flex justify-content-around">
                             {{-- <form action="{{route('breads.destroy',$bread->bread_product[0]->id)}}" method="post" class="mr-2">

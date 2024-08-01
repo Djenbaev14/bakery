@@ -141,5 +141,46 @@
             </div>
         </div>
   </div>
+  <canvas id="myChart" style="width:100%;max-width:100%"></canvas>
 @endsection
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+
+@endpush
+@push('js')
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script>
+        let table = new DataTable('#myTable');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+    var users={!! $clients !!};
+    var xValues=[];
+    var yValues=[];
+    var barColors=[];
+    users.forEach(e => {
+        xValues.push(e.name)
+        barColors.push("blue");
+        let sum = 0;
+
+        for( i = 0; i < e.sale.length; i++)
+        sum += e.sale[i].quantity * e.sale[i].price
+        yValues.push(sum)
+    });
+    
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+        labels: xValues,
+        datasets: [{
+            backgroundColor: barColors,
+            data: yValues
+        }]
+        },
+        options: {
+        legend: {display: false},
+        }
+    });
+    </script>
+@endpush

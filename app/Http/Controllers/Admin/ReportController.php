@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\TransfersToSupplierController;
 use App\Models\Bread;
 use App\Models\Client;
 use App\Models\Coming_product;
@@ -15,6 +16,7 @@ use App\Models\Production;
 use App\Models\Return_bread;
 use App\Models\Sale;
 use App\Models\sale_history;
+use App\Models\Transfers_to_supplier;
 use App\Models\User;
 use \Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -27,9 +29,15 @@ class ReportController extends Controller
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
         $end_date = $request->end_date ? $request->end_date :  date('Y-m-d');
         
-        $clients=Client::with(['sale' => function($q) use ($start_date,$end_date) { 
-            $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
-        }])->orderBy('id','desc')->get();
+        // $clients=Client::with(['sale' => function($q) use ($start_date,$end_date) { 
+        //     $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
+        // }])->orderBy('id','desc')->get();
+        $clients = Client::with(['sale' => function($query) {
+            $query->orderByRaw('quantity * price');
+        }])
+        // ->orderByRaw('sale.price * sale.quantity')
+        ->get();
+        // return $clients;
         $kindergardens=Client::where('kindergarden','=',1)->with(['sale' => function($q) use ($start_date,$end_date) { 
             $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
         }])->orderBy('id','desc')->get();
@@ -79,7 +87,16 @@ class ReportController extends Controller
         $production_count=Production::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum('quantity');
         $sale_coming=Sale::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum(DB::raw('quantity * price'));
         $expenditure=Expenditure::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum('price')+Expenditure_product::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum(DB::raw('quantity * price'));
-        return view('admin.pages.report.benifit.index',compact('start_date','end_date','production_count','sale_coming','expenditure'));
+
+        
+        $expenditure_suppliers=Transfers_to_supplier::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum('paid');
+        $expenditure_users=Expenditure::whereHas('expenditure_type',function($q) {
+            return $q->where('deduction_from_wages','=','0');
+        })->whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum('price');
+        $expenditure_salaries=Expenditure::whereHas('expenditure_type',function($q) {
+            return $q->where('deduction_from_wages','=','1');
+        })->whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->sum('price');
+        return view('admin.pages.report.benifit.index',compact('start_date','end_date','production_count','sale_coming','expenditure','expenditure_suppliers','expenditure_users','expenditure_salaries'));
     }
     
     public function reportDelivery(Request $request){
@@ -122,8 +139,20 @@ class ReportController extends Controller
         
         $sale_histories=sale_history::whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->get();
         $sales=Sale::whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->get();
+        $clients=Client::with('sale_history',function($query) use ($start_date,$end_date){
+            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
+        })->get();
 
-        return view('admin.pages.report.sale.index',compact('start_date','end_date','sale_histories','sales'));
+        $deliveries=User::where('role_id',3)->with('sale_history',function($query) use ($start_date,$end_date){
+            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
+        })->with('sale',function($query) use ($start_date,$end_date){
+            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
+        })->with('expenditure',function($query) use ($start_date,$end_date){
+            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
+        })->with('expenditure_salary',function($query) use ($start_date,$end_date){
+            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
+        })->get();
+        return view('admin.pages.report.sale.index',compact('start_date','end_date','sale_histories','sales','deliveries','clients'));
     }
     public function reportSaleShow( Sale $sale){
         $expenditure=Expenditure::where('user_id',$sale->user_id)

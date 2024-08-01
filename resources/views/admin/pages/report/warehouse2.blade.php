@@ -71,7 +71,7 @@
                                   {{$bread->name}}
                                 </td>
                                 <td class="align-middle">
-                                  <a href="store-two/show/{{$bread->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($bread->production->sum('quantity'))}} </a>  
+                                  <a href="store-two/{{$bread->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($bread->production->sum('quantity'))}} </a>  
                                 </td>
                                 <td class="align-middle">
                                   {{number_format($bread->production->sum(function($t){return $t->cost_price * $t->quantity;}) )}} сум
@@ -116,7 +116,7 @@
                                   {{$bread->name}}
                                 </td>
                                 <td class="align-middle">
-                                  <a href="store-two/show/{{$bread->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($bread->sale->sum('quantity'))}} </a>  
+                                  <a href="store-two/{{$bread->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($bread->sale->sum('quantity'))}} </a>  
                                 </td>
                                 <td class="align-middle">
                                   {{number_format($bread->sale->sum(function($t){return $t->price * $t->quantity;}))}} сум

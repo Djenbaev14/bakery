@@ -26,17 +26,14 @@ class SaleController extends Controller
 {
     public function index(){
         $breads=Bread::all();
+        $clients=Client::orderBy('id','desc')->get();
         if(auth()->user()->role_id == 3){
             $sales = Sale::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->paginate(20);
-            $clients=Client::where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-            
         }else{
             foreach ($breads as $bread) {
                 $bread->quantity=warehouse_quan($bread->id);
             }
-
             $sales = Sale::orderBy('created_at','desc')->get();  
-            $clients=Client::orderBy('id','desc')->get();
         }
 
         return view('admin.pages.sales.index',compact('breads','clients','sales'));
@@ -48,15 +45,14 @@ class SaleController extends Controller
         $text = "Вы уверены, что хотите удалить?";
         confirmDelete($title, $text);
         $breads=Bread::with(["sale" => function($q){$q->where('user_id', '=', auth()->user()->id);}])->get();
+        $clients=Client::all(); 
         if(auth()->user()->role_id == 3){
             $sales = Sale::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->get();
-            $clients=Client::where('user_id',auth()->user()->id)->get();
             foreach ($breads as $bread) {
                 $bread->quantity=warehouse_quan_delivery($bread->id);
             }
         }else{
             $sales = Sale::orderBy('created_at','desc')->paginate(20);  
-            $clients=Client::all(); 
             foreach ($breads as $bread) {
                 $bread->quantity=warehouse_quan($bread->id);
             }

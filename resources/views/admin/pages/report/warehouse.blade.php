@@ -125,7 +125,7 @@
                                   {{$product->name}}
                                 </td>
                                 <td class="align-middle">
-                                  <a href="/product/{{$product->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($product->coming_product->sum('quantity'),2)}} {{$product->union->name}}</a> 
+                                  <a href="/store-one/{{$product->id}}?start_date={{$start_date}}&end_date={{$end_date}}">{{number_format($product->coming_product->sum('quantity'))}} {{$product->union->name}}</a> 
                                 </td>
                                 <td class="align-middle">
                                   {{number_format($product->coming_product->sum(function($t){return $t->price * $t->quantity;}))}} сум

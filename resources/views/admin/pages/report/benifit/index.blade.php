@@ -86,5 +86,37 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Расход</h5>
+                </div>
+                <div class="card-body">
+                    
+                    <table class="table table-sm table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>
+                                  Поставщик ушун расход
+                                </th>
+                                <th>
+                                  Ичшилар расход	
+                                </th>
+                                <th>
+                                  Ойлик	
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{number_format($expenditure_suppliers)}} сум</td>
+                                <td>{{number_format($expenditure_users)}} сум</td>
+                                <td>{{number_format($expenditure_salaries)}} сум</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

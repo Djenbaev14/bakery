@@ -92,10 +92,14 @@
                                   {{$bread->quantity}}
                                 </td>
                                 <td class="align-middle">
-                                  {{ number_format($bread->cost_price) }} сум
+                                  @if (auth()->user()->role_id==1)
+                                    {{ number_format($bread->cost_price) }} сум
+                                  @endif
                                 </td>
                                 <td class="align-middle">
+                                  @if (auth()->user()->role_id==1)
                                   {{ number_format($bread->cost_price * $bread->quantity) }} сум
+                                  @endif
                                 </td>
                                 <td class="align-middle">
                                   {{\Carbon\Carbon::parse($bread->created_at)->format('d M Y H:i:s')}}

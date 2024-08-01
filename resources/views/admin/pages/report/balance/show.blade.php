@@ -23,7 +23,7 @@
               <div class="card-header">
                 <div class="container">
                   <div class="row justify-content-between align-items-center">
-                    <div class="col-12"><h4>Приход и Расход
+                    <div class="col-12"><h4>{{$user->username}}
                     </h4></div>
                   </div>
                   
@@ -54,9 +54,6 @@
                         <thead>
                             <tr>
                                 <th>
-                                  Имя
-                                </th>
-                                <th>
                                     Количество
                                 </th>
                                 <th>
@@ -75,9 +72,6 @@
                             @if ($user->role_id==3)
                               <tr>
                                   <td class="align-middle">
-                                    {{$com->user->username}}
-                                  </td>
-                                  <td class="align-middle">
                                     {{$com->quantity}}
                                   </td>
                                   <td class="align-middle">
@@ -93,9 +87,6 @@
                             @elseif($user->role_id==4)
                               <tr>
                                   <td class="align-middle">
-                                    {{$com->responsible->username}}
-                                  </td>
-                                  <td class="align-middle">
                                     {{$com->quantity}}
                                   </td>
                                   <td class="align-middle">
@@ -110,9 +101,6 @@
                               </tr>
                               @elseif($user->role_id==2)
                               <tr>
-                                  <td class="align-middle">
-                                    {{$com->user->username}}
-                                  </td>
                                   <td class="align-middle">
                                     {{$com->quantity}}
                                   </td>
@@ -136,7 +124,8 @@
                         </tbody>
                     </table>
                     <div class="row m-1">
-                        {{-- <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общая итог: {{number_format($coming->sum(function($t){return $t->delivery_kpi * $t->quantity;}))}} сум</span> --}}
+                      <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общий итог: {{number_format($coming->sum(function($t){return $t->seller_kpi * $t->quantity;}))}} сум</span>
+                      <span class="bg-primary bg-gradient rounded text-light pr-1 pl-1 ml-2">Общий  кол: {{number_format($coming->sum('quantity'))}}</span>
                     </div>
                     <span class="d-flex justify-content-end">{{$coming->links('pagination::bootstrap-4')}}</span>
                 </div>
@@ -184,13 +173,13 @@
                             @empty
                             <tr>
                                 <td colspan="10" class="text-center">
-                                    <h2>Производство нет</h2>
+                                    <h2>Расход нет</h2>
                                 </td>
                             @endforelse
                         </tbody>
                     </table>
                     <div class="row m-1">
-                        <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общая итог: {{number_format(expenditure_salary($user))}} сум</span>
+                        <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общий  итог: {{number_format(expenditure_salary($user))}} сум</span>
                     </div>
                     <span class="d-flex justify-content-end">{{$expenditure_salaries->links('pagination::bootstrap-4')}}</span>
                 </div>

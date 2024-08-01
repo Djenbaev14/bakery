@@ -18,7 +18,7 @@ class GL_ADMIN
     public function handle(Request $request, Closure $next): Response
     {
         
-        if (Role::find(Auth::user()->role_id)->name == 'GL_ADMIN' || Role::find(Auth::user()->role_id)->name == 'SELLER_ADMIN') {
+        if (Role::find(Auth::user()->role_id)->name == 'GL_ADMIN' ) {
             return $next($request);
         }
         return back();

@@ -121,14 +121,52 @@
                 </div>
             </div>
         </div>
+        @foreach ($deliveries as $delivery)
+            
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{$delivery->username}}</h5>
+                </div>
+                <div class="card-body">
+                    
+                    <table class="table table-sm table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Жами килинган савдо	
+                                </th>
+                                <th>
+                                    Тушган пул	
+                                </th>
+                                <th>
+                                    Кабул килинмаган пул	
+                                </th>
+                                <th>
+                                    Карзлар
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{number_format($delivery->sale->sum(function($t){return $t->price * $t->quantity;}))}} сум</td>
+                                <td>{{number_format($delivery->sale_history->where('status',1)->sum('paid'))}} сум</td>
+                                <td>{{number_format($delivery->sale_history->where('status',0)->sum('paid'))}} сум</td>
+                                <td>{{number_format($delivery->sale->sum(function($t){return $t->price * $t->quantity;}) - $delivery->sale_history->sum('paid'))}} сум</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @endforeach
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Клиенты</h5>
                 </div>
                 <div class="card-body">
-                    <livewire:report-sale-histories-client/>
-                    {{-- <table class="table table-sm table-bordered ">
+                    <table class="table table-sm table-bordered ">
                         <thead>
                             <tr>
                                 <th>
@@ -140,10 +178,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($sale_histories->where('status',1) as $sale_history)
+                            @forelse ($clients as $client)
                                 <tr>
-                                    <td>{{$sale_history->client->name}}</td>
-                                    <td>{{number_format($sale_history->paid)}} сум</td>
+                                    <td>{{$client->name}}</td>
+                                    <td>{{number_format($client->sale_history->sum('paid'))}} сум</td>
                                 </tr>
                             @empty
                             <tr>
@@ -153,7 +191,7 @@
                             </tr>
                             @endforelse
                         </tbody>
-                    </table> --}}
+                    </table>
                 </div>
             </div>
         </div>

@@ -19,11 +19,7 @@ use Illuminate\Http\Request;
 class ClientController extends Controller
 {
     public function index(){
-        if(auth()->user()->role_id == 3){
-            $clients=Client::where('user_id',auth()->user()->id)->orderBy('id','desc')->get();
-        }else{
-            $clients=Client::orderBy('id','desc')->get();
-        }
+        $clients=Client::orderBy('id','desc')->get();
         return view('admin.pages.clients.index',compact('clients'));
     }
     public function show(Request $request,Client $client){

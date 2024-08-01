@@ -24,6 +24,9 @@ class User extends Authenticatable
     public function sale():HasMany{
         return $this->hasMany(Sale::class);
     }
+    public function sale_history():HasMany{
+        return $this->hasMany(sale_history::class);
+    }
     public function role():BelongsTo{
         return $this->BelongsTo(Role::class);
     }
@@ -38,7 +41,7 @@ class User extends Authenticatable
     }
 
     public function expenditure():HasMany{
-        return $this->hasMany(Expenditure::class);
+        return $this->hasMany(Expenditure::class,'responsible_id','id');
     }
     public function payment_history():HasMany{
         return $this->hasMany(payment_history::class);
@@ -54,6 +57,12 @@ class User extends Authenticatable
     }
     public function expenditure_coming_product():HasMany{
         return $this->hasMany(Expenditure_coming_product::class);
+    }
+    public function fine():HasMany{
+        return $this->hasMany(Fine::class);
+    }
+    public function expenditure_salary():HasMany{
+        return $this->hasMany(Expenditure_Salary::class);
     }
     
 

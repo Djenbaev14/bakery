@@ -54,7 +54,9 @@
                               {{ $pro->quantity }}
                             </td>
                             <td class="align-middle">
-                              {{ number_format($pro->cost_price) }} сум
+                              @if (auth()->user()->role_id==1)
+                                {{ number_format($pro->cost_price) }} сум
+                              @endif
                             </td>
                             <td class="align-middle">
                               {{\Carbon\Carbon::parse($pro->created_at)->format('d M Y H:i:s')}}

@@ -21,45 +21,6 @@ return new class extends Migration
         });
 
         
-        
-        
-        DB::table('products')->insert([
-            'name'=>'ekoprema',
-            'union_id'=>'2',
-            'price'=>'19000',
-        ]);
-
-        
-        DB::table('products')->insert([
-            'name'=>'semichki may',
-            'union_id'=>'1',
-            'price'=>'19000',
-        ]);
-        
-
-        DB::table('products')->insert([
-            'name'=>'tuz',
-            'union_id'=>'2',
-            'price'=>'1000',
-        ]);
-        
-        DB::table('products')->insert([
-            'name'=>'elektr energiya',
-            'union_id'=>'5',
-            'price'=>'9000',
-        ]);
-        
-        DB::table('products')->insert([
-            'name'=>'shakar',
-            'union_id'=>'2',
-            'price'=>'17500',
-        ]);
-        
-        DB::table('products')->insert([
-            'name'=>'kazak un',
-            'union_id'=>'2',
-            'price'=>'6000',
-        ]);
     }
 
     /**

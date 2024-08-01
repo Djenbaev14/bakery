@@ -40,6 +40,10 @@ return new class extends Migration
         ]);
         
         DB::table('roles')->insert([
+            'name'=>'Electrician',
+            'r_name'=>'Электрик'
+        ]);
+        DB::table('roles')->insert([
             'name'=>'Examiner',
             'r_name'=>'Инспектор'
         ]);

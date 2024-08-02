@@ -7,6 +7,7 @@ use App\Models\Expenditure;
 use App\Models\Expenditure_product;
 use App\Models\Expenditure_Salary;
 use App\Models\ExpenditureType;
+use App\Models\Fine;
 use App\Models\payment_history;
 use App\Models\Product;
 use App\Models\Production;
@@ -63,14 +64,22 @@ use App\Models\User_salary;
     }
     return $expenditure_summa;
   }
+  function fine_amount($user){
+    $fines=Fine::where('user_id',$user->id)->get();
+    $fine_summa=0;
+    foreach ($fines as $fine) {
+      $fine_summa+=$fine->price;
+    }
+    return $fine_summa;
+  }
   
   function user_balance($user){
     if($user->role_id==3){
-      return Sale::where('user_id',$user->id)->sum(DB::raw('quantity * delivery_kpi')) - expenditure_salary($user);
+      return Sale::where('user_id',$user->id)->sum(DB::raw('quantity * delivery_kpi')) - expenditure_salary($user) - fine_amount($user);
     }else if($user->role_id == 2){
-      return Production::sum(DB::raw('quantity * seller_kpi')) - expenditure_salary($user);
+      return Production::sum(DB::raw('quantity * seller_kpi')) - expenditure_salary($user) - fine_amount($user);
     }else if($user->role_id == 4){
-      return Production::where('responsible_id',$user->id)->sum(DB::raw('quantity * worker_kpi')) - expenditure_salary($user);
+      return Production::where('responsible_id',$user->id)->sum(DB::raw('quantity * worker_kpi')) - expenditure_salary($user) - fine_amount($user);
     }
   }
 

@@ -39,6 +39,7 @@ class ProductionController extends Controller
             'user_id'=>'array|required'
         ]);
         
+        
         if(in_array(auth()->user()->id,$request->user_id) || auth()->user()->role_id==1 || auth()->user()->role_id==2){
             if((Control::whereNull('end_date')->where('first_id',$request->user_id[0])->exists() || Control::whereNull('end_date')->where('second_id',$request->user_id[0])->exists()) &&
             (Control::whereNull('end_date')->where('first_id',$request->user_id[1])->exists() || Control::whereNull('end_date')->where('second_id',$request->user_id[1])->exists())

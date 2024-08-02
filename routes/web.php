@@ -128,6 +128,10 @@ Route::group(['middleware'=>['auth','all_admin']],function(){
     // index
     Route::post('/payment',[DebtController::class,'payment'])->name('payment');
 
+    // clients breads
+    Route::get('/clients-breads',[ClientController::class,'clientBreads'])->name('clients.breads');
+    // clients breads show
+    Route::get('/clients-breads/{client}',[ClientController::class,'clientBreadsShow'])->name('clients.breads.show');
     // debt clients
     // index
     Route::get('/clients-debt',[DebtClientController::class,'index'])->name('debt_clients.index');

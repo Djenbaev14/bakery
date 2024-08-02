@@ -10,6 +10,7 @@ use App\Models\Coming_product;
 use App\Models\Expenditure;
 use App\Models\Expenditure_product;
 use App\Models\Expenditure_Salary;
+use App\Models\Fine;
 use App\Models\payment_history;
 use App\Models\Product;
 use App\Models\Production;
@@ -130,7 +131,8 @@ class ReportController extends Controller
         }else if($user->role_id == 4){
           $coming=Production::where('responsible_id',$user->id)->orderBy('id','desc')->paginate(10);
         }
-        return view('admin.pages.report.balance.show',compact('user','expenditure_salaries','coming'));
+        $fines=Fine::where('user_id',$user->id)->paginate(10);
+        return view('admin.pages.report.balance.show',compact('user','expenditure_salaries','coming','fines'));
     }
 
     public function reportSale(Request $request){
@@ -139,10 +141,8 @@ class ReportController extends Controller
         
         $sale_histories=sale_history::whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->get();
         $sales=Sale::whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->get();
-        $clients=Client::with('sale_history',function($query) use ($start_date,$end_date){
-            return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
-        })->get();
-
+        $clients=Client::with(["sale_history" => function($q) use($start_date,$end_date){
+            $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);}])->get();
         $deliveries=User::where('role_id',3)->with('sale_history',function($query) use ($start_date,$end_date){
             return $query->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]);
         })->with('sale',function($query) use ($start_date,$end_date){

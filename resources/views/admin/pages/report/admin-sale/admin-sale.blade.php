@@ -1,6 +1,6 @@
 @extends('admin.layouts.main')
 
-@section('title', 'Все новости')
+@section('title', 'Trio System')
 
 @section('breadcrumb')
 <div class="page-header">

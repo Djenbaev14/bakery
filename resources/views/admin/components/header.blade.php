@@ -3,10 +3,12 @@
 
   <div class="m-header">
       <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
-      <a href="#!" class="b-brand">
+      <a href="#!" class="b-brand d-flex justify-content-center align-items-center" >
           <!-- ========   change your logo hear   ============ -->
-          {{-- <img src="/admin/images/logo.png" alt="" class="logo">
-          <img src="/admin/images/logo-icon.png" alt="" class="logo-thumb"> --}}
+          <img src="/admin/images/logooo.png" width="30px" class="logo">
+          <h2 style="color: #fff;margin:0">TRIO</h2>
+          {{-- <img src="/admin/images/logo.png" alt="" class="logo"> --}}
+          {{-- <img src="/admin/images/logo-icon.png" alt="" class="logo-thumb"> --}}
       </a>
       <a href="#!" class="mob-toggler">
           <i class="feather icon-more-vertical"></i>

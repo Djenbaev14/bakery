@@ -55,6 +55,7 @@
                     <ul class="pcoded-submenu">
                         <li><a href="{{route('clients.index')}}">Список клиентов</a></li>
                         <li><a href="{{route('debt_clients.index')}}">Долг клиенты</a></li>
+                        <li><a href="{{route('clients.breads')}}">Клиенты</a></li>
                     </ul>
                 </li>
                 

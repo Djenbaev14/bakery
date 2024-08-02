@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Bread;
 use App\Models\Client;
-use App\Models\Expenditure;
 use App\Models\payment_history;
-use App\Models\Return_bread;
 use App\Models\Sale;
 use App\Models\sale_history;
-use App\Models\Sale_items;
-use App\Models\User;
-use App\Models\User_salary;
+use Carbon\Carbon;
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use DB;
 use Illuminate\Http\Request;
 
@@ -85,6 +84,27 @@ class ClientController extends Controller
 
 
         return view('admin.pages.clients.histories',compact('sale','debt','payments','client','start_date','end_date'));
+    }
+    public function clientBreads(Request $request){
+        $date =$request->date ? $request->date : date('Y-m-d');
+        $breads=Bread::get();
+        $clients=Client::with(["sale" => function($q) use($date){
+            $q->whereDate('created_at', $date);}])->get();
+        // return Sale::whereDate('created_at',$date)->get();
+        // return $clients;
+        return view('admin.pages.clients.breads',compact('date','clients','breads'));
+    }
+    public function clientBreadsShow(Request $request,Client $client){
+        $start_date =$request->start_date ? $request->start_date : date('Y-m-01');
+        $end_date =$request->end_date ? $request->end_date : date('Y-m-30');
+        
+        $begin = new DateTime($start_date);
+        $end = new DateTime($end_date);
+
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod($begin, $interval, $end);
+        $breads=Bread::get();
+        return view('admin.pages.clients.breads-show',compact('client','start_date','end_date','period','breads'));
     }
     public function pay_client_filter(Client $client,Request $request){
         return $request->all();

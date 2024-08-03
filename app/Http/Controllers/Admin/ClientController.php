@@ -89,9 +89,7 @@ class ClientController extends Controller
         $date =$request->date ? $request->date : date('Y-m-d');
         $breads=Bread::get();
         $clients=Client::with(["sale" => function($q) use($date){
-            $q->whereDate('created_at', $date);}])->get();
-        // return Sale::whereDate('created_at',$date)->get();
-        // return $clients;
+            $q->whereDate('created_at', $date);}])->paginate(100);
         return view('admin.pages.clients.breads',compact('date','clients','breads'));
     }
     public function clientBreadsShow(Request $request,Client $client){

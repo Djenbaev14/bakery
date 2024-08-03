@@ -51,6 +51,9 @@
               <table id="myTable" class="table table-sm table-striped table-hover">
                   <thead class="table-bordered">
                       <tr>
+                        <th>
+                          №
+                        </th>
                           <th>
                             Имя
                           </th>
@@ -64,6 +67,9 @@
                   <tbody>
                       @forelse ($clients as $client)
                       <tr>
+                        <td class="align-middle">
+                            {{ ($clients ->currentpage()-1) * $clients ->perpage() + $loop->index + 1 }}
+                        </td>
                           <td class="align-middle">
                               <a href="{{route('clients.breads.show',$client->id)}}">{{ $client->name}}</a>
                           </td>

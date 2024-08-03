@@ -25,9 +25,9 @@
                 <div class="row justify-content-between align-items-center">
                   <h4 class="col-lg-3 col-sm-12"> Расход
                   </h4>
-                  <div class="col-lg-4 col-sm-12">
-                    @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
-                      <button class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить тип расход</button>
+                  @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+                  <div class="col-lg-4 col-sm-6">
+                      <button class="btn btn-sm btn-primary mr-2 mb-2" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить тип расход</button>
                     @endif
                     <button class="btn btn-sm btn-primary ml-2" data-bs-toggle="modal" data-bs-target="#myModal2">Добавить расход</button>
                   </div>

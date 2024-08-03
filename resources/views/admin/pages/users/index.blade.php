@@ -23,9 +23,9 @@
             <div class="card-header">
               <div class="container">
                 <div class="row justify-content-between align-items-center">
-                  <h4 class="col-4">Управление пользователями
+                  <h4 class="col-lg-5 col-sm-12">Управление пользователями
                   </h4>
-                  <button class="col-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить</button>
+                  <button class="col-lg-2 col-sm-12 btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить</button>
                     <!-- The Modal -->
                     <div class="modal fade" id="myModal1">
                       <div class="modal-dialog">

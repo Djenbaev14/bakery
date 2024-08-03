@@ -30,22 +30,13 @@ class ReportController extends Controller
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
         $end_date = $request->end_date ? $request->end_date :  date('Y-m-d');
         
-        // $clients=Client::with(['sale' => function($q) use ($start_date,$end_date) { 
-        //     $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
-        // }])->orderBy('id','desc')->get();
         $clients = Client::with(['sale' => function($query) {
             $query->orderByRaw('quantity * price');
-        }])
-        // ->orderByRaw('sale.price * sale.quantity')
-        ->get();
+        }])->get();
         // return $clients;
         $kindergardens=Client::where('kindergarden','=',1)->with(['sale' => function($q) use ($start_date,$end_date) { 
             $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
         }])->orderBy('id','desc')->get();
-        // $clients_total=Sale::whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->sum(DB::raw('quantity*price'));
-        // $kindergardens_total=Sale::with(['client' => function($q) { 
-        //     $q->where('kindergarden', '=', 1); 
-        // }])->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date])->get();
         return view('admin.pages.report.active-clients',compact('start_date','end_date','clients','kindergardens'));
     }
 

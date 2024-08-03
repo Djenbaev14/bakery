@@ -134,9 +134,9 @@
                             @endforelse
                         </tbody>
                     </table>
-                    <div class="row m-1">
-                        {{-- <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общая итог: {{number_format($coming_total)}} сум</span> --}}
-                    </div>
+                    {{-- <div class="row m-1">
+                        <span class="bg-info bg-gradient rounded text-light pr-1 pl-1">Общая итог: {{number_format($coming_total)}} сум</span>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -146,7 +146,6 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
-
 @endpush
 @push('js')
     <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>

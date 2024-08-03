@@ -48,9 +48,11 @@
   <div class="row">
         <div class="col-sm-12">
             <div class="card">
+              <div class="card-header">
+                <h5>Общий произведенный продукт</h5>
+              </div>
                 <div class="card-block" style="overflow: auto">
-                  <h5>Общий произведенный продукт</h5>
-                    <table class="table table-sm table-bordered table-striped table-hover mt-4">
+                    <table class="table table-sm table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>
@@ -93,9 +95,11 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card">
+              <div class="card-header">
+                <h5>Всего продано товаров</h5>
+              </div>
                 <div class="card-block" style="overflow: auto">
-                  <h5>Всего продано товаров</h5>
-                    <table class="table table-bordered table-striped table-hover mt-4">
+                    <table class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>

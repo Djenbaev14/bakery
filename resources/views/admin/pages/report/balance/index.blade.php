@@ -34,7 +34,7 @@
   <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-block">
+                <div class="card-block" style="overflow: auto">
                     <table class="table table-sm table-bordered table-striped table-hover">
                         <thead>
                             <tr>

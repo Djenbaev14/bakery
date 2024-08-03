@@ -33,7 +33,7 @@
   <div class="row">
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-block" style="overflow: auto">
+                <div class="card-block">
                     <form action="{{route('report-benifit')}}" method="GET">
                         <div class="row">
                         <div class="col-md-6 form-group">
@@ -51,11 +51,11 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <div class="card">
+            <div class="card" >
                 <div class="card-header">
                     <h5>Фойда</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow: auto">
                     
                     <table class="table table-sm table-bordered ">
                         <thead>
@@ -91,7 +91,7 @@
                 <div class="card-header">
                     <h5>Расход</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow: auto">
                     
                     <table class="table table-sm table-bordered ">
                         <thead>

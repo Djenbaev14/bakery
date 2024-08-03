@@ -90,7 +90,7 @@
                 <div class="card-header">
                     <h5>Финанс</h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="overflow: auto">
                     
                     <table class="table table-sm table-bordered ">
                         <thead>

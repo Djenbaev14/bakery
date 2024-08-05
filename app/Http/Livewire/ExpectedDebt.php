@@ -20,7 +20,7 @@ class ExpectedDebt extends Component
             'sale_histories'=>sale_history::where('status','0')->whereHas('client', function ($query) {
                 return $query->where('name','like','%'.$this->search.'%');
             })->orderBy('id','desc')
-            ->paginate(10),
+            ->paginate(20),
             // 'total_paid'=>DB::table('sales')
             // ->join('clients','clients.id','=','sales.client_id')
             // ->where('clients.name','like','%'.$this->search.'%')

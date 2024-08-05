@@ -20,7 +20,7 @@ class SearchSales extends Component
             $sales = Sale::where('user_id',auth()->user()->id)->orderBy('created_at','desc')
             ->whereHas('client', function ($query) {
                 return $query->where('name','like','%'.$this->search.'%');
-            })->paginate(10);
+            })->paginate(30);
             
         }
         else{
@@ -28,7 +28,7 @@ class SearchSales extends Component
                 return $query->where('name','like','%'.$this->search.'%');
             })->orWhereHas('user', function ($query) {
                 return $query->where('username','like','%'.$this->search.'%');
-            })->paginate(10);  
+            })->paginate(30);  
             
         }
         return view('livewire.search-sales',[

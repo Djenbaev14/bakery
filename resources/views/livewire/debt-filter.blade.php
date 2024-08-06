@@ -269,8 +269,6 @@
       <span class="border border-info rounded font-weight-bold text-info pr-1 pl-1 ml-2 mb-2">Итого количество: {{number_format($kindergarten_sales->sum('quantity')-$total_paid)}}</span>
     </div>
   </div>
-
-    
 </div>
 
 

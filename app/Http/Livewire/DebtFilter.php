@@ -61,6 +61,7 @@ class DebtFilter extends Component
                 $kindergarten_total_paid=$kindergarten_total_paid+$sale->sale_history->sum('paid');
             }
             $kindergarten_total_debt=$kindergarten_sales->sum(function($t){return $t->quantity*$t->price;})-$kindergarten_total_paid;
-        return view('livewire.debt-filter',compact('total_paid','main_sales','kindergarten_sales','main_total_debt','kindergarten_total_debt','main_total_paid','kindergarten_total_paid'));
+            
+            return view('livewire.debt-filter',compact('total_paid','main_sales','kindergarten_sales','main_total_debt','kindergarten_total_debt','main_total_paid','kindergarten_total_paid'));
     }
 }

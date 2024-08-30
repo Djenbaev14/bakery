@@ -27,7 +27,7 @@
                   </h4>
                   @if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
                   <div class="col-lg-4 col-sm-6">
-                      <button class="btn btn-sm btn-primary mr-2 mb-2" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить тип расход</button>
+                      <button class="btn btn-sm btn-primary mr-2 mb-1" data-bs-toggle="modal" data-bs-target="#myModal1">Добавить тип расход</button>
                     @endif
                     <button class="btn btn-sm btn-primary ml-2" data-bs-toggle="modal" data-bs-target="#myModal2">Добавить расход</button>
                   </div>
@@ -106,108 +106,109 @@
               </div>
             </div>
         </div>
-        @if (auth()->user()->role_id==1 || auth()->user()->role_id==2)
-          <div class="card">
-            <div class="card-body">
-              <div class="card-block">
-                <form action="{{route('expenditure.index')}}" method="GET">
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                        <input type="date" name="start_date" required class="form-control pl-2 pr-2" value="{{ $start_date }}">
-                      </div>
-                      <div class="col-md-6 form-group">
-                        <input type="date" name="end_date" required class="form-control pl-2 pr-2" value="{{ $end_date }}">
-                      </div>
-                      <div class="col-md-3 form-group">
-                        <select name="user_id" class="form-control selectpicker">
-                          <option hidden>Все</option>
-                          @foreach ($users as $user)
-                              <option value="{{$user->id}}" <?=$user->id == $user_id ? 'selected' : '';?>>{{$user->username}}</option>
-                          @endforeach
-                        </select>
-                      </div>  
-                      <div class="col-md-2 form-group" >
-                        <input type="submit" class="btn btn-sm btn-primary" value="Фильтр">
-                      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-block">
+            <form action="{{route('expenditure.index')}}" method="GET">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                    <input type="date" name="start_date" required class="form-control pl-2 pr-2" value="{{ $start_date }}">
                   </div>
-                </form>
+                  <div class="col-md-6 form-group">
+                    <input type="date" name="end_date" required class="form-control pl-2 pr-2" value="{{ $end_date }}">
+                  </div>
+                  <div class="col-md-3 form-group">
+                    <select name="user_id" class="form-control selectpicker">
+                      @if (auth()->user()->role_id==1 && auth()->user()->role_id==2)
+                        <option hidden>Все</option>
+                        @foreach ($users as $user)
+                            <option value="{{$user->id}}" <?=$user->id == $user_id ? 'selected' : '';?>>{{$user->username}}</option>
+                        @endforeach
+                      @endif
+                      <option value="{{auth()->user()->id}}" selected>{{auth()->user()->username}}</option>
+                    </select>
+                  </div>  
+                  <div class="col-md-2 form-group" >
+                    <input type="submit" class="btn btn-sm btn-primary" value="Фильтр">
+                  </div>
               </div>
-            </div>
+            </form>
           </div>
-          <div class="card">
-            <div class="card-block" style="overflow: auto">
-              {{-- <livewire:expenditures-table/> --}}
-              <table class="table table-sm table-bordered table-striped table-hover">
-                  <thead>
-                      <tr>
-                        <th>
-                          Пользователь
-                        </th>
-                        <th>
-                          Маъсул
-                        </th>
-                          <th>
-                              Тип
-                          </th>
-                          <th>
-                              Комментария
-                          </th>
-                          <th>
-                              Сумма
-                          </th>
-                          <th>
-                              Время
-                          </th>
-                          <th>
-                            Действия
-                          </th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      @forelse ($expenditures as $expenditure)
-                      <tr>
-                        <td class="align-middle">
-                            @if (count($expenditure->expenditure_salary) > 0)
-                              {{ $expenditure->expenditure_salary->first()->user->username}}
-                            @else
-                              <span class="border border-info pl-1 pr-1 rounded text-info">none</span>
-                            @endif
-                        </td>
-                        <td class="align-middle">
-                            {{ $expenditure->user->username}}
-                        </td>
-                          <td class="align-middle">
-                            {{$expenditure->expenditure_type->name}}
-                          </td>
-                          <td class="align-middle">
-                            {{ $expenditure->comment }}
-                          </td>
-                          <td class="align-middle">
-                            {{number_format($expenditure->price)}} сум
-                          </td>
-                          <td class="align-middle">
-                            {{\Carbon\Carbon::parse($expenditure->created_at)->format('d M Y H:i:s')}}
-                          </td>
-                          <td class="d-flex justify-content-around">
-                            <a href="{{route('expenditure.delete',$expenditure->id)}}" class="btn btn-danger btn-sm" data-confirm-delete="true"><i class="fa fa-trash"></i></a>
-                          </td>
-                      </tr>
-                      @empty
-                      <tr>
-                          <td colspan="8" class="text-center">
-                              <h2>Расходы нет</h2>
-                          </td>
-                      @endforelse
-                  </tbody>
-              </table>
-              <div class="">
-                  <span class="bg-info bg-gradient rounded text-light pr-1 pl-1 mb-1">Итого: {{number_format($expenditures->sum('price'))}} сум</span>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block" style="overflow: auto">
+          {{-- <livewire:expenditures-table/> --}}
+          <table class="table table-sm table-bordered table-striped table-hover">
+              <thead>
+                  <tr>
+                    <th>
+                      Пользователь
+                    </th>
+                    <th>
+                      Маъсул
+                    </th>
+                      <th>
+                          Тип
+                      </th>
+                      <th>
+                          Комментария
+                      </th>
+                      <th>
+                          Сумма
+                      </th>
+                      <th>
+                          Время
+                      </th>
+                      <th>
+                        Действия
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @forelse ($expenditures as $expenditure)
+                  <tr>
+                    <td class="align-middle">
+                        @if (count($expenditure->expenditure_salary) > 0)
+                          {{ $expenditure->expenditure_salary->first()->user->username}}
+                        @else
+                          <span class="border border-info pl-1 pr-1 rounded text-info">none</span>
+                        @endif
+                    </td>
+                    <td class="align-middle">
+                        {{ $expenditure->user->username}}
+                    </td>
+                      <td class="align-middle">
+                        {{$expenditure->expenditure_type->name}}
+                      </td>
+                      <td class="align-middle">
+                        {{ $expenditure->comment }}
+                      </td>
+                      <td class="align-middle">
+                        {{number_format($expenditure->price)}} сум
+                      </td>
+                      <td class="align-middle">
+                        {{\Carbon\Carbon::parse($expenditure->created_at)->format('d M Y H:i:s')}}
+                      </td>
+                      <td class="d-flex justify-content-around">
+                        <a href="{{route('expenditure.delete',$expenditure->id)}}" class="btn btn-danger btn-sm" data-confirm-delete="true"><i class="fa fa-trash"></i></a>
+                      </td>
+                  </tr>
+                  @empty
+                  <tr>
+                      <td colspan="8" class="text-center">
+                          <h2>Расходы нет</h2>
+                      </td>
+                  @endforelse
+              </tbody>
+          </table>
+          <div class="">
+              <span class="bg-info bg-gradient rounded text-light pr-1 pl-1 mb-1">Итого: {{number_format($expenditures->sum('price'))}} сум</span>
           </div>
-        
-            
-        @endif
+        </div>
+      </div>
     </div>
 </div>
 @endsection

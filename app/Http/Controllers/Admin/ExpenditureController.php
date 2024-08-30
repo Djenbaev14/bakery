@@ -27,9 +27,15 @@ class ExpenditureController extends Controller
         $expenditures=Expenditure::where('responsible_id','=',$user_id)->orWhereHas('expenditure_salary', function ($query) use ($user_id){
             $query->where('user_id', '=', $user_id);
         })->whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->orderBy('created_at','desc')->get();
+        
         $expenditure_type=ExpenditureType::all();
         if($user_id == 'Все' || !$user_id){
             $expenditures=Expenditure::whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->orderBy('created_at','desc')->get();
+        }
+        if(auth()->user()->role_id!=1 && auth()->user()->role_id!=2){
+            $expenditures=Expenditure::where('responsible_id','=',auth()->user()->id)->orWhereHas('expenditure_salary', function ($query){
+                $query->where('user_id', '=', auth()->user()->id);
+            })->whereBetween(DB::raw('date(created_at)'),[$start_date,$end_date])->orderBy('created_at','desc')->get();
         }
         if(auth()->user()->role_id == 3 || auth()->user()->role_id == 4){
             $user_id=auth()->user()->id;

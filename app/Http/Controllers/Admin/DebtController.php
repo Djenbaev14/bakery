@@ -110,7 +110,6 @@ class DebtController extends Controller
                     'bread_id'=>Sale::find($request->check[0])->bread_id,
                     'paid'=>$request->paid,
                     'type'=>$request->type,
-                    'created_at'=>Sale::find($request->check[0])->created_at
                 ]);
             }else{
                 for ($i=0; $i < count($request->check); $i++) { 
@@ -123,7 +122,6 @@ class DebtController extends Controller
                         'bread_id'=>Sale::find($request->check[$i])->bread_id,
                         'paid'=>$debt[$i],
                         'type'=>$request->type,
-                        'created_at'=>Sale::find($request->check[$i])->created_at
                     ]);
                 }
             }

@@ -50,31 +50,31 @@
             <div class="card">
                 <div class="card-block" style="overflow: auto">
                   <h5>Основной</h5>
-                    <table class="table table-sm table-bordered table-striped table-hover mt-4">
+                    <table class="table table-sm table-bordered table-striped table-hover mt-4" id="myTable">
                         <thead>
                             <tr>
+                                <th>
+                                    Общий объем продаж
+                                </th>
                                 <th>
                                     Имя клиента	
                                 </th>
                                 <th>
                                     Телефон номер	
                                 </th>
-                                <th>
-                                    Общий объем продаж
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($clients as $client)
                             <tr>
+                                <td class="align-middle" >
+                                  {{($client->sale->sum(function($t){return $t->price * $t->quantity;}))}} сум
+                                </td>
                                 <td class="align-middle">
                                   {{$client->name}}
                                 </td>
                                 <td class="align-middle">
                                   {{$client->phone}}
-                                </td>
-                                <td class="align-middle">
-                                  {{number_format($client->sale->sum(function($t){return $t->price * $t->quantity;}))}} сум
                                 </td>
                             </tr>
                             @empty
@@ -145,12 +145,15 @@
 @endsection
 
 @push('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
+
 @endpush
 @push('js')
-    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
         let table = new DataTable('#myTable');
+        
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script>

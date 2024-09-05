@@ -42,6 +42,8 @@ class DebtController extends Controller
                         return $query->where('kindergarden',1);
                 })->orderBy('created_at','desc')->paginate(20);  
         }
+            $main_sales->appends(request()->query());
+            $kindergarten_sales->appends(request()->query());
             $main_total_paid=0;
             $kindergarten_total_paid=0;
 

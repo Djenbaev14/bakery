@@ -30,10 +30,7 @@ class ReportController extends Controller
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
         $end_date = $request->end_date ? $request->end_date :  date('Y-m-d');
         
-        $clients = Client::with(['sale' => function($query) {
-            $query->orderByRaw('quantity * price');
-        }])->get();
-        // return $clients;
+        $clients = Client::with('sale')->get();
         $kindergardens=Client::where('kindergarden','=',1)->with(['sale' => function($q) use ($start_date,$end_date) { 
             $q->whereBetween(DB::raw('date(created_at)'), [$start_date,$end_date]); 
         }])->orderBy('id','desc')->get();

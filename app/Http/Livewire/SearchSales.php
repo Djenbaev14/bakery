@@ -31,6 +31,7 @@ class SearchSales extends Component
             })->paginate(30);  
             
         }
+        
         return view('livewire.search-sales',[
             'sales'=>$sales
         ]);

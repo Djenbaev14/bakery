@@ -47,7 +47,13 @@
               <div class="card-block">
                 <form action="{{route('debts.index')}}" method="get">
                   <div class="row">
-                      <div class="col-sm-6 col-lg-6">
+                    <div class="col-md-6 form-group">
+                      <input type="date" name="start_date" required class="form-control pl-2 pr-2" value="{{ $start_date }}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="date" name="end_date" required class="form-control pl-2 pr-2" value="{{ $end_date }}">
+                    </div>
+                      <div class="col-sm-4 col-lg-4">
                           <input type="text" class="form-control" name="search" value="{{old('search')}}" placeholder="Поиск клиентов">
                       </div>
                       <div class="col-sm-4 col-lg-4">
@@ -179,13 +185,19 @@
                   <span class="border border-primary rounded font-weight-bold text-primary pr-1 pl-1 ml-2 mb-2">Итого : {{number_format($main_total_debt)}} </span>
                   <span class="border border-info rounded font-weight-bold text-info pr-1 pl-1 ml-2 mb-2">Итого количество: {{number_format($main_sales->sum('quantity')-$total_paid)}}</span>
                 </div>
-                <span class="d-flex justify-content-end">{{$main_sales->links('pagination::bootstrap-4')}}</span>
+                {{-- <span class="d-flex justify-content-end">{{$main_sales->links('pagination::bootstrap-4')}}</span> --}}
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
               <div class="card-block">
                 <form action="{{route('debts.index')}}" method="get">
                   <div class="row">
-                      <div class="col-sm-6 col-lg-6">
+                    <div class="col-md-6 form-group">
+                      <input type="date" name="start_date" required class="form-control pl-2 pr-2" value="{{ $start_date }}">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <input type="date" name="end_date" required class="form-control pl-2 pr-2" value="{{ $end_date }}">
+                    </div>
+                      <div class="col-sm-4 col-lg-4">
                           <input type="text" class="form-control" name="search_kinder" value="{{old('search_kinder')}}" placeholder="Поиск клиентов">
                       </div>
                       <div class="col-sm-4 col-lg-4">

@@ -113,7 +113,7 @@
           <div class="card-block">
             <form action="{{route('expenditure.index')}}" method="GET">
               <div class="row">
-                <div class="col-md-6 form-group">
+                  <div class="col-md-6 form-group">
                     <input type="date" name="start_date" required class="form-control pl-2 pr-2" value="{{ $start_date }}">
                   </div>
                   <div class="col-md-6 form-group">

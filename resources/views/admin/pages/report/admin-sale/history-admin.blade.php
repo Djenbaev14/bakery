@@ -60,9 +60,9 @@
                   <table id="myTable" class="table-sm table-bordered table-striped table-hover bg-light bg-gradient" style="width: 100%;min-width:100%;table-layout:auto;">
                     <thead>
                         <tr>
-                            <th>
-                              Маҳсулот номи	
-                            </th>
+                          <th>
+                            Маҳсулот номи	
+                          </th>
                             <th>
                               Маъсул
                             </th>
@@ -92,9 +92,9 @@
                     <tbody>
                         @forelse ($sales as $sale)
                         <tr>
-                            <td class="align-middle">
-                                {{$sale->bread->name}}
-                            </td>
+                          <td class="align-middle">
+                              {{$sale->bread->name}}
+                          </td>
                             <td class="align-middle">
                                 {{$sale->user->username}}
                             </td>

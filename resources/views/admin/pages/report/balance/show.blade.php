@@ -218,6 +218,9 @@
                                   Расход
                                 </th>
                                 <th>
+                                  Комментария
+                                </th>
+                                <th>
                                   Добавлено
                                 </th>
                             </tr>
@@ -233,6 +236,9 @@
                               </td>
                               <td class="align-middle">
                                 {{number_format($salary->expenditure->price)}} сум
+                              </td>
+                              <td>
+                                {{$salary->expenditure->comment}}
                               </td>
                               <td class="align-middle">
                                 {{\Carbon\Carbon::parse($salary->created_at)->format('d M Y H:i:s')}}

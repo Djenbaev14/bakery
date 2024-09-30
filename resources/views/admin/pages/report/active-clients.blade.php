@@ -146,14 +146,22 @@
 
 @push('css')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
-
 @endpush
 @push('js')
     <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
-        let table = new DataTable('#myTable');
-        
+        // let table = new DataTable('#myTable');
+        new DataTable('#myTable', {
+            columnDefs: [
+                {
+                    target: 0,
+                    render: DataTable.render.number(null, null, 0, '',' сум')
+                }
+            ],
+            "order": [[ 0, "desc" ]],
+            "paging":false
+        });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script>

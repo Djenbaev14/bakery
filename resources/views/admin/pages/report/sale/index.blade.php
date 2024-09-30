@@ -166,7 +166,7 @@
                     <h5>Клиенты</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table table-sm table-bordered ">
+                    <table class="table table-sm table-bordered " id="myTable">
                         <thead>
                             <tr>
                                 <th>
@@ -197,3 +197,25 @@
         </div>
     </div>
 @endsection
+
+@push('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
+@endpush
+
+@push('js')
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        // let table = new DataTable('#myTable');
+        new DataTable('#myTable', {
+            columnDefs: [
+                {
+                    target: 0,
+                    render: DataTable.render.number(null, null, 0, '',' сум')
+                }
+            ],
+            "paging":   false,
+            "order": [[ 1, "desc" ]]
+        });
+    </script>
+@endpush

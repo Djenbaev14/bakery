@@ -46,7 +46,7 @@ class ReportController extends Controller
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
         $end_date = $request->end_date ? $request->end_date :  date('Y-m-d');
         $sales_total_sum=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->select(DB::raw('SUM(quantity * price) as total'))->value('total');
-        $sales=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->orderBy('id','desc')->paginate(10)->appends($request->query());
+        $sales=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->orderBy('id','desc')->paginate(15)->appends($request->query());
         $sale_histories=sale_history::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->get();
         return view('admin.pages.report.admin-sale.history-admin',compact('user','sales','sales_total_sum','sale_histories','start_date', 'end_date'));
     }

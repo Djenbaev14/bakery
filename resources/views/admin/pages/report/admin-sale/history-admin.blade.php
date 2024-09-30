@@ -129,11 +129,11 @@
                     </tbody>
                 </table>
                 <div class="row m-1">
-                  <span class="border border-primary text-primary font-weight-bold  rounded mt-2 pr-1 pl-1  mr-4 mb-2">Жами савдоси: {{number_format($sales->sum(function($t){return $t->price * $t->quantity;}))}} сум</span>
+                  <span class="border border-primary text-primary font-weight-bold  rounded mt-2 pr-1 pl-1  mr-4 mb-2">Жами савдоси: {{number_format($sales_total_sum)}} сум</span>
                   <span class="border border-success text-success font-weight-bold  rounded mt-2 pr-2 pl-2  mr-4 mb-2">Туланди : {{number_format($sale_histories->sum('paid'))}} сум</span>
                   <span class="border border-warning text-warning font-weight-bold  rounded mt-2 pr-2 pl-2  mr-4 mb-2">Накд савдо: {{number_format($sale_histories->where('type','nal')->sum('paid'))}} сум</span>
                   <span class="border border-info text-info font-weight-bold  rounded mt-2 pr-2 pl-2  mr-4 mb-2">Терминал  : {{number_format($sale_histories->where('type','per')->sum('paid'))}} сум</span>
-                  <span class="border border-danger text-danger font-weight-bold  rounded mt-2 pr-2 pl-2  mr-4 mb-2">Карз : {{number_format($sales->sum(function($t){return $t->price * $t->quantity;})-$sale_histories->sum('paid'))}} сум</span>
+                  <span class="border border-danger text-danger font-weight-bold  rounded mt-2 pr-2 pl-2  mr-4 mb-2">Карз : {{number_format($sales_total_sum-$sale_histories->sum('paid'))}} сум</span>
                 </div>
                 <div class="row">
                   <p class="d-flex justify-content-end">{{$sales->links('pagination::bootstrap-4')}}</p>

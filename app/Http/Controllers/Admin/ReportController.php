@@ -45,9 +45,10 @@ class ReportController extends Controller
     public function historyAdmin(User $user, Request $request){
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
         $end_date = $request->end_date ? $request->end_date :  date('Y-m-d');
-        $sales=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->orderBy('id','desc')->paginate(10);
+        $sales_total_sum=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->select(DB::raw('SUM(quantity * price) as total'))->value('total');
+        $sales=Sale::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->orderBy('id','desc')->paginate(10)->appends($request->query());
         $sale_histories=sale_history::where('user_id',$user->id)->whereBetween(DB::raw('date(created_at)'), [$start_date, $end_date])->get();
-        return view('admin.pages.report.admin-sale.history-admin',compact('user','sales','sale_histories','start_date', 'end_date'));
+        return view('admin.pages.report.admin-sale.history-admin',compact('user','sales','sales_total_sum','sale_histories','start_date', 'end_date'));
     }
     public function ha(User $user, Request $request){
         $start_date = $request->start_date ? $request->start_date : date('Y-m-01');
@@ -111,15 +112,15 @@ class ReportController extends Controller
     }
 
     public function reportBalanceShow(User $user){
-        $expenditure_salaries=Expenditure_Salary::where('user_id',$user->id)->paginate(10);
+        $expenditure_salaries=Expenditure_Salary::where('user_id',$user->id)->paginate(10,['*'], 'expen_page')->appends(request()->except('expen_page'));
         if($user->role_id==3){
-          $coming=Sale::where('user_id',$user->id)->orderBy('id','desc')->paginate(10);
+          $coming=Sale::where('user_id',$user->id)->orderBy('id','desc')->paginate(10,['*'], 'coming_page')->appends(request()->except('coming_page'));
         }else if($user->role_id == 2){
-          $coming=Production::orderBy('id','desc')->paginate(10);
+          $coming=Production::orderBy('id','desc')->paginate(10,['*'], 'coming_page')->appends(request()->except('coming_page'));
         }else if($user->role_id == 4){
-          $coming=Production::where('responsible_id',$user->id)->orderBy('id','desc')->paginate(10);
+          $coming=Production::where('responsible_id',$user->id)->orderBy('id','desc')->paginate(10,['*'], 'coming_page')->appends(request()->except('coming_page'));
         }
-        $fines=Fine::where('user_id',$user->id)->paginate(10);
+        $fines=Fine::where('user_id',$user->id)->paginate(10,['*'], 'fine_page')->appends(request()->except('fine_page'));
         return view('admin.pages.report.balance.show',compact('user','expenditure_salaries','coming','fines'));
     }
 

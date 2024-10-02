@@ -46,12 +46,12 @@ class SaleController extends Controller
         $breads=Bread::with(["sale" => function($q){$q->where('user_id', '=', auth()->user()->id);}])->get();
         $clients=Client::all(); 
         if(auth()->user()->role_id == 3){
-            $sales = Sale::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->paginate(20);
+            $sales = Sale::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->get();
             foreach ($breads as $bread) {
                 $bread->quantity=warehouse_quan_delivery($bread->id);
             }
         }else{
-            $sales = Sale::orderBy('created_at','desc')->paginate(20);  
+            $sales = Sale::orderBy('created_at','desc')->get();  
             foreach ($breads as $bread) {
                 $bread->quantity=warehouse_quan($bread->id);
             }

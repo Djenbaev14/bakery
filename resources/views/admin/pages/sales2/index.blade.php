@@ -111,14 +111,7 @@
     <div class="col-sm-12">
         <div class="card p-3">
           {{-- @livewire('search-sales') --}}
-          <livewire:search-sales/>
-          {{-- <div class="card-block">
-            <div class="row">
-              <div class="col-lg-12 col-sm-6">
-                  <input type="text" class="form-control mt-2" id="searchInput" onkeyup="searchTable()" placeholder="Поиск" style="width: 100%">
-              </div>
-            </div>
-          </div>
+          {{-- <livewire:search-sales/> --}}
           <div class="card-block " style="overflow: auto">
             <table id="myTable" class="table-sm table-bordered table-striped table-hover bg-light bg-gradient" style="width: 100%;min-width:100%;table-layout:auto;">
                 <thead>
@@ -168,19 +161,19 @@
                             {{$sale->client->name}}
                         </td>
                         <td class="align-middle">
-                          {{number_format($sale->price)}} сум
+                          {{$sale->price}}
                         </td>
                         <td class="align-middle">
-                          {{number_format($sale->price * $sale->quantity)}} сум
+                          {{$sale->price * $sale->quantity}}
                         </td>
                         <td class="align-middle">
-                          {{number_format($sale->sale_history->sum('paid'))}} сум
+                          {{$sale->sale_history->sum('paid')}}
                         </td>
                         <td class="align-middle">
-                          {{($sale->price * $sale->quantity-$sale->sale_history->sum('paid') > 0)? number_format($sale->price * $sale->quantity-$sale->sale_history->sum('paid')) :  0;}} сум
+                          {{($sale->price * $sale->quantity-$sale->sale_history->sum('paid') > 0)? $sale->price * $sale->quantity-$sale->sale_history->sum('paid') :  0;}} 
                         </td>
                         <td class="align-middle">
-                          {{number_format($sale->quantity)}}
+                          {{$sale->quantity}}
                         </td>
                         <td class="align-middle">
                           {{\Carbon\Carbon::parse($sale->created_at)->format('d M Y H:i:s')}}
@@ -201,7 +194,7 @@
                     @endforelse
                 </tbody>
             </table>
-          </div> --}}
+          </div>
         </div>
     </div>
 </div>
@@ -209,9 +202,40 @@
 
 @endsection
 
+@push('css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
+@endpush
 
 @push('js')
   
+<script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    // let table = new DataTable('#myTable');
+    new DataTable('#myTable', {
+        columnDefs: [
+            {
+                target: 3,
+                render: DataTable.render.number(null, null, 0, '',' сум')
+            },
+            {
+                target: 4,
+                render: DataTable.render.number(null, null, 0, '',' сум')
+            },
+            {
+                target: 5,
+                render: DataTable.render.number(null, null, 0, '',' сум')
+            },
+            {
+                target: 6,
+                render: DataTable.render.number(null, null, 0, '',' сум')
+            }
+        ],
+        // "ordering":false
+        "order": [[ 100, "asc" ]],
+        // "paging":false
+    });
+</script>
 <script>
   var price = document.getElementById("price");
   var quantity = document.getElementById("quantity");

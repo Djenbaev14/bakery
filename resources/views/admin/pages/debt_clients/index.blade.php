@@ -52,7 +52,7 @@
                             @forelse ($clients as $client)
                                 <tr>
                                     <td>{{$client->name}}</td>
-                                    <td>{{number_format(client_balance($client->id))}} сум</td>
+                                    <td>{{client_balance($client->id)}}</td>
                                 </tr>
                             @empty
                             <tr>
@@ -81,7 +81,7 @@
         new DataTable('#myTable', {
             columnDefs: [
                 {
-                    target: 0,
+                    target: 1,
                     render: DataTable.render.number(null, null, 0, '',' сум')
                 }
             ],

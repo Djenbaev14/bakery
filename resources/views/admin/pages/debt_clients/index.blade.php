@@ -86,7 +86,7 @@
                 }
             ],
             "paging":   false,
-            "order": [[ 1, "desc" ]]
+            "order": [[ 1, "asc" ]]
         });
     </script>
 @endpush

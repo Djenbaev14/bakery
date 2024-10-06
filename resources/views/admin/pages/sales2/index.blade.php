@@ -110,91 +110,8 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="card p-3">
-          {{-- @livewire('search-sales') --}}
+          @livewire('search-sales')
           {{-- <livewire:search-sales/> --}}
-          <div class="card-block " style="overflow: auto">
-            <table id="myTable" class="table-sm table-bordered table-striped table-hover bg-light bg-gradient" style="width: 100%;min-width:100%;table-layout:auto;">
-                <thead>
-                    <tr>
-                        <th>
-                          Маҳсулот номи	
-                        </th>
-                        <th>
-                          Маъсул
-                        </th>
-                        <th>
-                          Xаридор
-                        </th>
-                        <th>
-                          Товар нархи
-                        </th>
-                        <th>
-                          Тан нарх
-                        </th>
-                        <th>
-                          Толанган нарх
-                        </th>
-                        <th>
-                          Карз нархи
-                        </th>
-                        <th>
-                          Миқдор (дона)
-                        </th>
-                        <th>
-                          Вақти
-                        </th>
-                        <th>
-                          Действия
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($sales as $sale)
-                    <tr>
-                        <td class="align-middle">
-                            {{$sale->bread->name}}
-                        </td>
-                        <td class="align-middle">
-                            {{$sale->user->username}}
-                        </td>
-                        <td class="align-middle">
-                            {{$sale->client->name}}
-                        </td>
-                        <td class="align-middle">
-                          {{$sale->price}}
-                        </td>
-                        <td class="align-middle">
-                          {{$sale->price * $sale->quantity}}
-                        </td>
-                        <td class="align-middle">
-                          {{$sale->sale_history->sum('paid')}}
-                        </td>
-                        <td class="align-middle">
-                          {{($sale->price * $sale->quantity-$sale->sale_history->sum('paid') > 0)? $sale->price * $sale->quantity-$sale->sale_history->sum('paid') :  0;}} 
-                        </td>
-                        <td class="align-middle">
-                          {{$sale->quantity}}
-                        </td>
-                        <td class="align-middle">
-                          {{\Carbon\Carbon::parse($sale->created_at)->format('d M Y H:i:s')}}
-                        </td>
-                        <td>
-                          <form action="{{route('sales.destroy',$sale->id)}}" method="post" class="mr-2">
-                            @csrf
-                            <button class="btn btn-danger btn-sm"> <i class="fa fa-trash"></i></button>
-                          </form>
-        
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="10" class="text-center">
-                            <h2>Продажи нет</h2>
-                        </td>
-                    @endforelse
-                </tbody>
-            </table>
-          </div>
         </div>
     </div>
 </div>
@@ -202,40 +119,8 @@
 
 @endsection
 
-@push('css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.dataTables.css" />
-@endpush
-
 @push('js')
   
-<script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script>
-    // let table = new DataTable('#myTable');
-    new DataTable('#myTable', {
-        columnDefs: [
-            {
-                target: 3,
-                render: DataTable.render.number(null, null, 0, '',' сум')
-            },
-            {
-                target: 4,
-                render: DataTable.render.number(null, null, 0, '',' сум')
-            },
-            {
-                target: 5,
-                render: DataTable.render.number(null, null, 0, '',' сум')
-            },
-            {
-                target: 6,
-                render: DataTable.render.number(null, null, 0, '',' сум')
-            }
-        ],
-        // "ordering":false
-        "order": [[ 100, "asc" ]],
-        // "paging":false
-    });
-</script>
 <script>
   var price = document.getElementById("price");
   var quantity = document.getElementById("quantity");

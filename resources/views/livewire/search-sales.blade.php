@@ -1,7 +1,7 @@
 <div>
   <div class="card-block row ">
       <div class="col-sm-12 col-lg-12">
-          <input type="text" class="form-control  border-bottom " wire:model='search' placeholder="Поиск клиентов">
+          <input type="text" class="form-control  border-bottom " wire:model.debounce.300ms="search" placeholder="Поиск клиентов">
       </div>
   </div>
   <div class="card-block " style="overflow: auto">

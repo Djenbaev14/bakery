@@ -1,16 +1,28 @@
 <div>
   <div class="card-block row ">
-      <div class="col-sm-12 col-lg-12">
-          <input type="text" class="form-control  border-bottom " wire:model.debounce.300ms="search" placeholder="Поиск клиентов">
-      </div>
+    <div class="col-sm-12 col-lg-12">
+        <input type="text" class="form-control  border-bottom " wire:model.debounce.300ms="search" placeholder="Поиск клиентов">
+    </div>
   </div>
+  <div class="card-block row ">
+    <div class="col-sm-12 col-lg-12">
+      <select wire:model="selectedPage">
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+  </div>
+
+
   <div class="card-block " style="overflow: auto">
     
     <table id="myTable" class="table-sm table-bordered table-striped table-hover bg-light bg-gradient" style="width: 100%;min-width:100%;table-layout:auto;">
       <thead>
           <tr>
-              <th>
-                Маҳсулот номи	
+              <th>	
+                Маҳсулот номи
               </th>
               <th>
                 Маъсул
